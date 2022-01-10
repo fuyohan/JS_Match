@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="js/jquery-2.1.3.min.js"></script>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>みんなの健康活動</title>
+</head>
+
+<body class="body">
+
+  <!--Headerエリア--->
+  <header>
+    <div class="top">
+      <div class="top-under">
+        <h1 class="logo"><a href="./Kenko-top.html"><img src="./img/PAGE LOGO.png" alt="ロゴ" width=100px
+              height=100px></a></h1>
+        <h1 class="letter">みんなの健康活動<br>
+          <div class="small">からだをバランスよく思いやり、楽しくリフレッシュ</div>
+        </h1>
+      </div>
+    </div>
+
+    <div class="menu">
+      <ul class=nav>
+        <li class="li"><a href="Kenko-chat.html">健康ナレッジ<br>を投稿</a></li>
+        <li class="li"><a href="">健康<br>スケジューリング</a></li>
+        <li class="li"><a href="">お楽しみ<br>マーケットプレイス</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <div class="full_screen">
+
+      <!--投稿エリア-->
+      <div class="left_side">
+        <section id="post">
+          <div class="post">
+            <h2 class="post-title">アンバサダーの健康生活</h2>
+          </div>
+
+          <div class="output">
+            <div id="output"></div>
+          </div>
+        </section>
+      </div>
+
+      <!--TOP画像エリア -->
+      <div class="right_side">
+        <div class="top-image-box">
+          <div class="top-text">
+            <div class="top-text1">時代にあった「健康」をアップデートしよう</div>
+            <div class="top-text2">今どんな気持ち？</div>
+            <div class="proposal_box">
+              <div class="proposal">
+                <div class="proposal_text">
+                  <a href="./Kenko-proposal new.html">自分に合った健康法を検索</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Ourコーチズエリア-->
+        <div class="news">
+          <h2 class="news-title">健康NAVI Ourコーチズ</h2>
+          <p class="news-titlej"></p>
+        </div>
+
+        <div class="news-detail">
+          <div class="news-block">
+            <a href=""><img class="news-image" src="./css/食事.png" alt="ロゴ"></a>
+            <div Class="news-text">
+              <div class="news-date"> 2016/11/18</div>
+              <div class="news-text">
+                栄養士が
+                美味しい健康レシピ
+                メニューを教えます
+              </div>
+            </div>
+          </div>
+
+          <div class="news-block">
+            <a href=""><img class="news-image" src="./css/運動.png" alt="ロゴ"></a>
+            <div Class="news-text">
+              <div class="news-date"> 2016/11/18</div>
+              <div class="news-text">
+                パーソナルトレーナーが
+                貴方の生活リズムにあったお勧めの
+                運動プラン・運動のコツをアドバイスしいます。
+              </div>
+            </div>
+          </div>
+
+          <div class="news-block">
+            <a href=""><img class="news-image" src="./css/睡眠.png" alt="ロゴ"></a>
+            <div Class="news-text">
+              <div class="news-date"> 2016/11/18</div>
+              <div class="news-text">
+                睡眠改善を行う為のコツを教えます。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="more_box">
+          <div class="more">
+            <div class="more_text">
+              More
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer-text-center">
+    <div class="wrapper">
+      <a href="#" class="btn-pagetop" id="btn"><span class="fa fa-angle-up icon-up"></span></a>
+      <small class="copyrights">copyrights 2021 minnnano_kenkokatsudo All RIghts Reserved.</small>
+    </div>
+  </footer>
+
+  <!-- ここから上にコードを書く -->
+
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!--** 以下Firebase **-->
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved}
+      from "https://cdnjs.cloudflare.com/ajax/libs/firebase/9.6.1/firebase-database.min.js"; //講義のリンクをコピーしても作成したプロジェクトとは数字が合わず。9.6.0➡9.6.1に修正した
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "",
+      authDomain: "post-f0442.firebaseapp.com",
+      databaseURL: "https://post-f0442-default-rtdb.firebaseio.com",
+      projectId: "post-f0442",
+      storageBucket: "post-f0442.appspot.com",
+      messagingSenderId: "832149054397",
+      appId: "1:832149054397:web:3c702410e2b8e5a13da8d4"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app); // RealtimeDBに接続
+    const dbRef = ref(db, "chat"); // RealtimeDB内の"chat"を使う  
+
+    //受信処理
+    onChildAdded(dbRef, function (data) {
+      let msg = data.val();
+      let key = data.key;
+      let h = '<div class="chat"><div class="uname">' + msg.uname + '</div>';
+      h += '<div class="text">' + msg.text + '</div></div>';
+      if (msg.url) h += '<div class="postimage"><img src= "' + msg.url + '" width=250px></div>';
+      h += `<button class="btn-try" data-chatkey="${key}" data-likecount="${msg.likecount||0}">やってみたい👍 ${msg.likecount||0}</button>`; //``は文字列を創るもの。＄｛｝を書くことでその中に変数を入れ込むことができる
+      h += `<button class="btn-more" data-chatkey="${key}" ><a href="./Kenko-detail.html">もっとMIL👀</a></button>`; 
+      //data-：この要素をあとでJSで引っ張ってこれる。 idはページに一つ。
+      h += '<button id="remove" class="btn-remove"';
+      h += key;
+      h += '">削除</button>';
+      $("#output").prepend(h); // #output の最後に追加
+      
+      //削除処理
+      $("#remove").on('click', function () {
+        remove(ref(db, "chat/" + key));
+        $('#' + key).remove();
+      });
+    });
+    //「やってみたい」処理
+    $("body").on('click','.btn-try', function () {//likeカウント プラスしていくイメージで実装
+    const postkey = $(this).attr('data-chatkey')//clickされたボタンのchatkeyをpostkeyに入れる。attr：htmlの属性を取得する。
+    console.log(postkey)
+    const postRef = ref(db, `chat/${postkey}/likecount`) //ref=書き込む場所どこに対して書き込むのか
+    let likecount = parseInt($(this).attr('data-likecount')) // ||はdata-likecountを引っ張ってくる。もし空だったら0を挿入。
+    likecount++ //letは変わる変数につかう
+    set(postRef, likecount); // DBに値を送信
+    });
+  </script>
+
+
+
+</body>
+
+</html>
